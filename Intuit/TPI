@@ -1,0 +1,157 @@
+TPI @Intuit
+
+Design and implement a service scheduler for an in-person customer service center (Very similar to genius bar at the Apple centers or Xfinity store service).
+Customer walks into the store and checks in. They are given a ticket with a sequential service number.The service number is called by the staff in the order determined by the scheduler.
+
+There are 2 different tiers of customers:
+
+1. Regular customers: serviced in the order they arrive.
+2. VIP customers: given higher priorities compared to Regular customers.
+
+Do the following,
+
+1. Design class for customer and ServiceScheduler with required high-level characteristics.
+2. Implement the ServiceScheduler to serve ALL VIP customers before serving regular customers. Implement two methods
+checkIn(Customer)
+getNextCustomer()
+3. Implement the scheduler to make sure 2:1 VIP vs. Regular customer processing rate. Modify getNextCustomer() method to implement the customer processing rate.
+
+# prompt
+
+You are prompting a large language model with the following prompt: "You are a culinary expert.
+Tell me whether an ingredient belongs in a fruit salad or a vegetable salad." The result will be used by a REST API service. What are some ways you can improve the prompt?
+
+You are a culinary classification API.
+classify the given ingredient into one of the following categories:
+-fruit salad
+-vegetable salad.
+-unknown
+
+Rules:
+
+- Always return output in json format
+-use lowercase keys and values
+-do not inlcude explanantion or extra text
+
+The result will be used by a REST API service. What are some ways you can improve the prompt?
+
+/* package whatever; // don't place package name! */
+import [java.io](http://java.io/).*;
+import java.util.LinkedList;
+import java.util.Queue;
+
+class Customer {
+private final int ticketNumber;
+private final String name;
+private final boolean isVIP;
+
+```
+public Customer(int ticketNumber, String name, boolean isVIP) {
+    this.ticketNumber = ticketNumber;
+    this.name = name;
+    this.isVIP = isVIP;
+}
+
+public boolean isVIP(){
+    return isVIP;
+}
+
+public int getTicketNumber() {
+    return ticketNumber;
+}
+
+public String getName(){
+    return name;
+}
+
+@Override
+public String toString () {
+    return "Customer{"+
+    "ticket=" + ticketNumber +
+    ", name =" + name + '\\'' +
+    ", VIP=" + isVIP +
+    '}';
+}
+
+```
+
+}
+
+class ServiceScheduler {
+private final Queue<Customer> vipQueue;
+private final Queue<Customer> regularQueue;
+private int ticketCounter;
+private int vipServedInCycle;
+
+```
+public ServiceScheduler() {
+    this.vipQueue = new LinkedList<>();
+    this.regularQueue = new LinkedList<>();
+    this.ticketCounter = 0;
+    this.vipServedInCycle = 0;
+}
+
+public void checkIn(String name, boolean isVIP) {
+    ticketCounter++;
+    Customer customer = new Customer(ticketCounter, name, isVIP);
+    if (isVIP){
+        vipQueue.offer(customer);
+    } else {
+        regularQueue.offer(customer);
+    }
+}
+
+public Customer getNextCustomer() {
+    if (vipServedInCycle < 2 && !vipQueue.isEmpty()) {
+        vipServedInCycle++;
+        return vipQueue.poll();
+    }
+
+    if(!regularQueue.isEmpty()) {
+        vipServedInCycle = 0;
+        return regularQueue.poll();
+    }
+
+    if(!vipQueue.isEmpty()) {
+        if (vipServedInCycle >= 2) {
+            vipServedInCycle = 0;
+        }
+        vipServedInCycle++;
+        return vipQueue.poll();
+    }
+
+    return null;
+}
+
+```
+
+}
+
+public class Main {
+public static void main(String[] args) {
+ServiceScheduler scheduler = new ServiceScheduler();
+
+```
+    scheduler.checkIn("Alice", false);
+    scheduler.checkIn("Bob", true);
+     scheduler.checkIn("charlie", false);
+      scheduler.checkIn("david", true);
+      scheduler.checkIn("Nine", false);
+
+      System.out.println(scheduler.getNextCustomer());
+      System.out.println(scheduler.getNextCustomer());
+      System.out.println(scheduler.getNextCustomer());
+      System.out.println(scheduler.getNextCustomer());
+
+      scheduler.checkIn("Mike", true);
+      scheduler.checkIn("Tome", false);
+
+      System.out.println(scheduler.getNextCustomer());
+      System.out.println(scheduler.getNextCustomer());
+      System.out.println(scheduler.getNextCustomer());
+
+}
+
+```
+
+}
