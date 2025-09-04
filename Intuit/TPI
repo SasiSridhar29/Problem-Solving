@@ -16,25 +16,6 @@ checkIn(Customer)
 getNextCustomer()
 3. Implement the scheduler to make sure 2:1 VIP vs. Regular customer processing rate. Modify getNextCustomer() method to implement the customer processing rate.
 
-# prompt
-
-You are prompting a large language model with the following prompt: "You are a culinary expert.
-Tell me whether an ingredient belongs in a fruit salad or a vegetable salad." The result will be used by a REST API service. What are some ways you can improve the prompt?
-
-You are a culinary classification API.
-classify the given ingredient into one of the following categories:
--fruit salad
--vegetable salad.
--unknown
-
-Rules:
-
-- Always return output in json format
--use lowercase keys and values
--do not inlcude explanantion or extra text
-
-The result will be used by a REST API service. What are some ways you can improve the prompt?
-
 /* package whatever; // don't place package name! */
 import [java.io](http://java.io/).*;
 import java.util.LinkedList;
@@ -155,3 +136,23 @@ ServiceScheduler scheduler = new ServiceScheduler();
 ```
 
 }
+
+
+# prompt
+
+You are prompting a large language model with the following prompt: "You are a culinary expert.
+Tell me whether an ingredient belongs in a fruit salad or a vegetable salad." The result will be used by a REST API service. What are some ways you can improve the prompt?
+
+You are a culinary classification API.
+classify the given ingredient into one of the following categories:
+-fruit salad
+-vegetable salad.
+-unknown
+
+Rules:
+
+- Always return output in json format
+-use lowercase keys and values
+-do not inlcude explanantion or extra text
+
+The result will be used by a REST API service. What are some ways you can improve the prompt?
